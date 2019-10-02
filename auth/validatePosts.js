@@ -6,6 +6,7 @@ function validatePost(req, res, next) {
     } else if (!post.text) {
         res.status(400).json({message: "missing required text field"})
     }
+    next();
 };
 
 module.exports = validatePost;

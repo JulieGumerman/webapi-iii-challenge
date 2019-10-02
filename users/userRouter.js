@@ -22,7 +22,7 @@ router.post('/:id/posts', validatePosts, (req, res) => {
         .catch(err => res.json(err))
 });
 
-router.get('/', (req, res) => {
+router.get('/', validateUserId, (req, res) => {
     users.get()
         .then(results => res.json(results))
         .catch(err => res.json(err))
