@@ -4,6 +4,7 @@ const express = require('express');
 
 const validateUser = require("../auth/validateUser");
 const validateUserId = require("../auth/validateUserId");
+const validatePosts = require("../auth/validatePosts");
 const users = require("./userDb.js");
 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.post('/', validateUser, (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.post('/:id/posts', validateUserId, (req, res) => {
+router.post('/:id/posts', validateUserId, validatePosts, (req, res) => {
 
 });
 
@@ -32,6 +33,7 @@ router.get('/:id', (req, res) => {
     const id = req.params.id;
     users.get(id)
         .then(results => res.json(results))
+        .catch(err => console.log("oops!", err))
 });
 
 router.get('/:id/posts', (req, res) => {
