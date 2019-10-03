@@ -28,7 +28,7 @@ router.get('/', validateUserId, (req, res) => {
         .catch(err => res.json(err))
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateUserId, (req, res) => {
  
     const id = req.params.id;
     users.getById(id)
@@ -36,21 +36,21 @@ router.get('/:id', (req, res) => {
         .catch(err => console.log("oops!", err))
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/:id/posts', validateUserId, (req, res) => {
     users.getUserPosts(req.params.id)
         .then(results => {res.json(results)})
         .catch(err => res.send(err))
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id',  (req, res) => {
     users.remove(req.params.id)
         .then(results => {
             res.json(results);
         })
 });
 
-router.put('/:id', validateUserId, (req, res) => {
+router.put('/:id', (req, res) => {
     users.update(req.params.id, req.body)
         .then(updates => res.json(req.body))
         .catch(err => res.json({err}))
